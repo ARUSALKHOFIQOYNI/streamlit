@@ -65,83 +65,83 @@ with preporcessing:
 with modeling:
     st.write("# MODELING")
 
-    Y = data_sudah_normal["PATIENT_TYPE"]
-    # st.dataframe(Y)
-    X = data_sudah_normal.iloc[:,1:18]
-    # st.dataframe(X)
+    # Y = data_sudah_normal["PATIENT_TYPE"]
+    # # st.dataframe(Y)
+    # X = data_sudah_normal.iloc[:,1:18]
+    # # st.dataframe(X)
 
-    X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.30, random_state=0)
+    # X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.30, random_state=0)
 
-    ### Dictionary to store model and its accuracy
+    # ### Dictionary to store model and its accuracy
 
-    model_accuracy = OrderedDict()
+    # model_accuracy = OrderedDict()
 
-    ### Dictionary to store model and its precision
+    # ### Dictionary to store model and its precision
 
-    model_precision = OrderedDict()
+    # model_precision = OrderedDict()
 
-    ### Dictionary to store model and its recall
+    # ### Dictionary to store model and its recall
 
-    model_recall = OrderedDict()
+    # model_recall = OrderedDict()
     
-    # Naive Bayes
-    naive_bayes_classifier = GaussianNB()
-    naive_bayes_classifier.fit(X_train, y_train)
-    Y_pred_nb = naive_bayes_classifier.predict(X_test)
+    # # Naive Bayes
+    # naive_bayes_classifier = GaussianNB()
+    # naive_bayes_classifier.fit(X_train, y_train)
+    # Y_pred_nb = naive_bayes_classifier.predict(X_test)
 
-    # decision tree
-    clf_dt = DecisionTreeClassifier(criterion="gini")
-    clf_dt = clf_dt.fit(X_train, y_train)
-    Y_pred_dt = clf_dt.predict(X_test)
+    # # decision tree
+    # clf_dt = DecisionTreeClassifier(criterion="gini")
+    # clf_dt = clf_dt.fit(X_train, y_train)
+    # Y_pred_dt = clf_dt.predict(X_test)
     
-    # Bagging Decision tree
-    clf = BaggingClassifier(base_estimator=DecisionTreeClassifier(),n_estimators=10, random_state=0).fit(X_train, y_train)
-    rsc = clf.predict(X_test)
-    c = ['Naive Bayes']
-    tree = pd.DataFrame(rsc,columns = c)
+    # # Bagging Decision tree
+    # clf = BaggingClassifier(base_estimator=DecisionTreeClassifier(),n_estimators=10, random_state=0).fit(X_train, y_train)
+    # rsc = clf.predict(X_test)
+    # c = ['Naive Bayes']
+    # tree = pd.DataFrame(rsc,columns = c)
 
-    
-
-    # K-Nearest Neighboor
-    k_range = range(1,26)
-    for k in k_range:
-        knn = KNeighborsClassifier(n_neighbors=k)
-        knn.fit(X_train, y_train)
-        Y_pred_knn = knn.predict(X_test)
-
-    naive_bayes_accuracy = round(100 * accuracy_score(y_test, Y_pred_nb), 2)
-    decision_tree_accuracy = round(100* metrics.accuracy_score(y_test, Y_pred_dt))
-    bagging_Dc = round(100 * accuracy_score(y_test, tree), 2)
-    knn_accuracy = round(100 * accuracy_score(y_test, Y_pred_knn), 2)
     
 
-    st.write("Pilih Metode : ")
-    naive_bayes_cb = st.checkbox("Naive Bayes")
-    decision_tree_cb = st.checkbox("Decision Tree")
-    bagging_tree_cb = st.checkbox("Bagging Decision Tree")
-    knn_cb = st.checkbox("K-Nearest Neighboor")
+    # # K-Nearest Neighboor
+    # k_range = range(1,26)
+    # for k in k_range:
+    #     knn = KNeighborsClassifier(n_neighbors=k)
+    #     knn.fit(X_train, y_train)
+    #     Y_pred_knn = knn.predict(X_test)
 
-    if naive_bayes_cb:
-        st.write('Akurasi Metode Naive Bayes {} %.'.format(naive_bayes_accuracy))
-    if decision_tree_cb:
-        st.write('Akurasi Metode Decision Tree {} %.'.format(decision_tree_accuracy))
-    if bagging_tree_cb:
-        st.write('Akurasi Metode Bagging Decision Tree {} %.'.format(bagging_Dc))
-    if knn_cb:
-        st.write('Akurasi Metode KNN {} %.'.format(knn_accuracy))
+    # naive_bayes_accuracy = round(100 * accuracy_score(y_test, Y_pred_nb), 2)
+    # decision_tree_accuracy = round(100* metrics.accuracy_score(y_test, Y_pred_dt))
+    # bagging_Dc = round(100 * accuracy_score(y_test, tree), 2)
+    # knn_accuracy = round(100 * accuracy_score(y_test, Y_pred_knn), 2)
+    
 
-    if naive_bayes_accuracy > decision_tree_accuracy and naive_bayes_accuracy > bagging_Dc and naive_bayes_accuracy > knn_accuracy:
-        hasil_tinggi = naive_bayes_classifier
-        metode = "Naive Bayes"
-    elif decision_tree_accuracy > naive_bayes_accuracy and decision_tree_accuracy > bagging_Dc and decision_tree_accuracy > knn_accuracy:
-        hasil_tinggi = clf_dt
-        metode = "Decision Tree"
-    elif bagging_Dc > naive_bayes_accuracy and bagging_Dc > decision_tree_accuracy and bagging_Dc > knn_accuracy:
-        hasil_tinggi = clf
-        metode = "Esamble Bagging Decision Tree"
-    else:
-        hasil_tinggi = knn
-        metode = "K-Nearest Neighboor"
+    # st.write("Pilih Metode : ")
+    # naive_bayes_cb = st.checkbox("Naive Bayes")
+    # decision_tree_cb = st.checkbox("Decision Tree")
+    # bagging_tree_cb = st.checkbox("Bagging Decision Tree")
+    # knn_cb = st.checkbox("K-Nearest Neighboor")
+
+    # if naive_bayes_cb:
+    #     st.write('Akurasi Metode Naive Bayes {} %.'.format(naive_bayes_accuracy))
+    # if decision_tree_cb:
+    #     st.write('Akurasi Metode Decision Tree {} %.'.format(decision_tree_accuracy))
+    # if bagging_tree_cb:
+    #     st.write('Akurasi Metode Bagging Decision Tree {} %.'.format(bagging_Dc))
+    # if knn_cb:
+    #     st.write('Akurasi Metode KNN {} %.'.format(knn_accuracy))
+
+    # if naive_bayes_accuracy > decision_tree_accuracy and naive_bayes_accuracy > bagging_Dc and naive_bayes_accuracy > knn_accuracy:
+    #     hasil_tinggi = naive_bayes_classifier
+    #     metode = "Naive Bayes"
+    # elif decision_tree_accuracy > naive_bayes_accuracy and decision_tree_accuracy > bagging_Dc and decision_tree_accuracy > knn_accuracy:
+    #     hasil_tinggi = clf_dt
+    #     metode = "Decision Tree"
+    # elif bagging_Dc > naive_bayes_accuracy and bagging_Dc > decision_tree_accuracy and bagging_Dc > knn_accuracy:
+    #     hasil_tinggi = clf
+    #     metode = "Esamble Bagging Decision Tree"
+    # else:
+    #     hasil_tinggi = knn
+    #     metode = "K-Nearest Neighboor"
 
 # with implementation:
     
